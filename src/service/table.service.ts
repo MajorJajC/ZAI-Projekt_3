@@ -9,18 +9,17 @@ import {Car} from "../model/car";
  */
 export const LOAD_TABLE = 'LOAD_TABLE';
 export const SORT_TABLE = 'SORT_TABLE';
-export const NEW_PRODUCT = 'NEW_PRODUCT';
-export const ADD_PRODUCT = 'ADD_PRODUCT';
-export const DEL_PRODUCT = 'DEL_PRODUCT';
-;
-export const EDIT_PRODUCT = 'EDIT_PRODUCT';
-export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
-export const VIEW_PRODUCT = 'VIEW_PRODUCT';
+export const NEW_CAR = 'NEW_CAR';
+export const ADD_CAR = 'ADD_CAR';
+export const DEL_CAR = 'DEL_CAR';
+export const EDIT_CAR = 'EDIT_CAR';
+export const UPDATE_CAR = 'UPDATE_CAR';
+export const VIEW_CAR = 'VIEW_CAR';
 export const FILTER_TABLE = 'FILTER_TABLE';
 export const CANCEL = 'CANCEL';
 
 /**
- * Service, that handles all user actions.
+ * Service that handles all user actions.
  */
 @Injectable()
 export class TableService {
@@ -32,13 +31,13 @@ export class TableService {
    * Car count, used as primary key for all products.
    * @type {number}
    */
-  private productCount: number = 0;
+  private carCount: number = 0;
 
   /**
    * Initial car count, used to generate some dummy data.
    * @type {number}
    */
-  private initialProductsCount: number = 20;
+  private initialCarCount: number = 20;
 
   /**
    * Load table.
@@ -46,7 +45,7 @@ export class TableService {
   public loadTable() {
     this.store.dispatch({
       type: LOAD_TABLE,
-      payload: this.getSampleProducts()
+      payload: this.getSampleCars()
     })
   }
 
@@ -87,9 +86,9 @@ export class TableService {
    * Show car's details.
    * @param car
    */
-  public viewProduct(car: any) {
+  public viewCar(car: any) {
     this.store.dispatch({
-      type: VIEW_PRODUCT,
+      type: VIEW_CAR,
       payload: car
     })
   }
@@ -97,9 +96,9 @@ export class TableService {
   /**
    * Show new car form.
    */
-  public newProduct() {
+  public newCar() {
     this.store.dispatch({
-      type: NEW_PRODUCT,
+      type: NEW_CAR,
       payload: {}
     })
   }
@@ -108,12 +107,12 @@ export class TableService {
    * Save new car.
    * @param car
    */
-  public addProduct(car: Car) {
-    this.productCount++;
-    car.id = this.productCount;
+  public addCar(car: Car) {
+    this.carCount++;
+    car.id = this.carCount;
 
     this.store.dispatch({
-      type: ADD_PRODUCT,
+      type: ADD_CAR,
       payload: car
     })
   }
@@ -122,9 +121,9 @@ export class TableService {
    * Show edit car form.
    * @param car
    */
-  public editProduct(car: any) {
+  public editCar(car: any) {
     this.store.dispatch({
-      type: EDIT_PRODUCT,
+      type: EDIT_CAR,
       payload: car
     })
   }
@@ -133,9 +132,9 @@ export class TableService {
    * Save edited car.
    * @param car
    */
-  public updateProduct(car: Car) {
+  public updateCar(car: Car) {
     this.store.dispatch({
-      type: UPDATE_PRODUCT,
+      type: UPDATE_CAR,
       payload: car
     })
   }
@@ -144,10 +143,10 @@ export class TableService {
    * Delete car.
    * @param car
    */
-  public deleteProduct(car: any) {
-    this.productCount--;
+  public deleteCar(car: any) {
+    this.carCount--;
     this.store.dispatch({
-      type: DEL_PRODUCT,
+      type: DEL_CAR,
       payload: car
     })
   }
@@ -166,16 +165,16 @@ export class TableService {
    * Method generates some dummy data for test purposes.
    * @returns {Car[]}
    */
-  private getSampleProducts(): any[] {
+  private getSampleCars(): any[] {
     let sampleImgUrl: string = 'http://pixers.pl/image/1/400/n8nLugc1WRUN9cGZCiEM3RmFLVmTNpmQyolUwgHO812UbpkZfRkQ81j1HZVQfNDXw79QhEUNhYVRhYVQh72MhF3Fqz4il5maulmR0ZmaERGaho2F0Rni/96/86/40/0096864037/1/fototapeta-cartoon-czerwony-samochod-transport.jpg';
     let loremIpsum: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eget ex eget erat dapibus fermentum in vitae dolor. Maecenas suscipit tempus accumsan. Quisque rhoncus augue vel ligula mollis, in fermentum nulla auctor. Morbi varius libero vitae tristique laoreet. Proin vehicula nunc in dolor lobortis viverra. Curabitur non commodo ex, a sagittis dui. Curabitur consectetur metus pretium nibh consequat efficitur. Maecenas ut vestibulum elit.';
     let cars: Car[] = [];
 
-    for (let i = 0; i < this.initialProductsCount; i++) {
+    for (let i = 0; i < this.initialCarCount; i++) {
       let car: Car = new Car('Samochód ' + i, 1000 * i, sampleImgUrl, loremIpsum, i * 50, (i+1) % 6, !(i % 3));
       car.id = i;
       cars.push(car);
-      this.productCount = i + 1;
+      this.carCount = i + 1;
     }
 
     return cars;

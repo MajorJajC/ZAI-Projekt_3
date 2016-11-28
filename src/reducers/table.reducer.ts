@@ -1,32 +1,25 @@
 import {
-  LOAD_TABLE, ADD_PRODUCT, DEL_PRODUCT, EDIT_PRODUCT, UPDATE_PRODUCT,
-  NEW_PRODUCT, CANCEL, VIEW_PRODUCT, FILTER_TABLE, SORT_TABLE
+  LOAD_TABLE, ADD_CAR, DEL_CAR, EDIT_CAR, UPDATE_CAR,
+  NEW_CAR, CANCEL, VIEW_CAR, FILTER_TABLE, SORT_TABLE
 } from "../service/table.service";
 
 /**
- * New product form state.
+ * New car form state.
  * @type {string}
  */
 export const NEW = 'NEW';
 
 /**
- * Edit product form state.
+ * Edit car form state.
  * @type {string}
  */
 export const EDITING = 'EDITING';
 
 /**
- * View product state.
+ * View car state.
  * @type {string}
  */
 export const VIEWING = 'VIEWING';
-
-/**
- * About state.
- * @type {string}
- export const ABOUT = 'ABOUT';
- */
-
 
 /**
  * Idle state, show table.
@@ -37,11 +30,11 @@ export const IDLE = 'IDLE';
 /**
  * Initial state.
  *
- * @type {{list: Array; product: {name: string; price: string; image: string}; filters: {}; sortColumn: string; sortAsc: boolean}}
+ * @type {{list: Array; car: {name: string; price: string; image: string}; filters: {}; sortColumn: string; sortAsc: boolean}}
  */
 const defaultState = {
   list: [],
-  product: {
+  car: {
     name: '',
     price: '',
     image: ''
@@ -73,7 +66,7 @@ export function tableReducer(state, action) {
     case LOAD_TABLE:
       return {
         list: action.payload,
-        product: {},
+        car: {},
         action: IDLE,
         filters: state.filters,
         sortColumn: state.sortColumn,
@@ -86,7 +79,7 @@ export function tableReducer(state, action) {
     case FILTER_TABLE:
       return {
         list: state.list,
-        product: {},
+        car: {},
         action: IDLE,
         filters: {
           from: action.payload.priceFrom,
@@ -113,7 +106,7 @@ export function tableReducer(state, action) {
 
       return {
         list: state.list.sort(dynamicSort(sortProperty)),
-        product: {},
+        car: {},
         action: IDLE,
         filters: state.filters,
         sortColumn: action.payload,
@@ -121,12 +114,12 @@ export function tableReducer(state, action) {
       };
 
     /**
-     * View product event.
+     * View car event.
      */
-    case VIEW_PRODUCT:
+    case VIEW_CAR:
       return {
         list: state.list,
-        product: action.payload,
+        car: action.payload,
         action: VIEWING,
         filters: state.filters,
         sortColumn: state.sortColumn,
@@ -134,13 +127,13 @@ export function tableReducer(state, action) {
       };
 
     /**
-     * New product form event.
+     * New car form event.
      */
-    case NEW_PRODUCT:
+    case NEW_CAR:
       //noinspection TypeScriptUnresolvedVariable
       return {
         list: state.list,
-        product: action.payload,
+        car: action.payload,
         action: NEW,
         filters: state.filters,
         sortColumn: state.sortColumn,
@@ -148,13 +141,13 @@ export function tableReducer(state, action) {
       };
 
     /**
-     * Save new product event.
+     * Save new car event.
      */
-    case ADD_PRODUCT:
+    case ADD_CAR:
       //noinspection TypeScriptUnresolvedVariable
       return {
         list: [...state.list, action.payload],
-        product: {},
+        car: {},
         action: IDLE,
         filters: state.filters,
         sortColumn: state.sortColumn,
@@ -162,19 +155,19 @@ export function tableReducer(state, action) {
       };
 
     /**
-     * Delete product event.
+     * Delete car event.
      *
      */
-    case DEL_PRODUCT:
+    case DEL_CAR:
       //noinspection TypeScriptUnresolvedVariable
-      let productList: any[] = state.list;
-      let productIndex = productList.indexOf(action.payload);
-      if (productIndex > -1) {
-        productList.splice(productIndex, 1);
+      let carList: any[] = state.list;
+      let carIndex = carList.indexOf(action.payload);
+      if (carIndex > -1) {
+        carList.splice(carIndex, 1);
       }
       return {
-        list: productList,
-        product: {},
+        list: carList,
+        car: {},
         action: IDLE,
         filters: state.filters,
         sortColumn: state.sortColumn,
@@ -182,13 +175,13 @@ export function tableReducer(state, action) {
       };
 
     /**
-     * Edit product form event.
+     * Edit car form event.
      */
-    case EDIT_PRODUCT:
+    case EDIT_CAR:
       //noinspection TypeScriptUnresolvedVariable
       return {
         list: state.list,
-        product: action.payload,
+        car: action.payload,
         action: EDITING,
         filters: state.filters,
         sortColumn: state.sortColumn,
@@ -196,19 +189,19 @@ export function tableReducer(state, action) {
       };
 
     /**
-     * Save edited product event.
+     * Save edited car event.
      */
-    case UPDATE_PRODUCT:
+    case UPDATE_CAR:
       //noinspection TypeScriptUnresolvedVariable
-      let products: any[] = state.list;
-      let index = products.indexOf(action.payload);
+      let cars: any[] = state.list;
+      let index = cars.indexOf(action.payload);
       console.log(index);
       if (index > -1) {
-        products[index] = action.payload;
+        cars[index] = action.payload;
       }
       return {
-        list: products,
-        product: {},
+        list: cars,
+        car: {},
         action: IDLE,
         filters: state.filters,
         sortColumn: state.sortColumn,
@@ -216,26 +209,12 @@ export function tableReducer(state, action) {
       };
 
     /**
-     * Show about site page.
-
-    case ABOUT:
-      return {
-        list: state.list,
-        product: action.payload,
-        action: ABOUT,
-        filters: state.filters,
-        sortColumn: state.sortColumn,
-        sortAsc: state.sortAsc
-      };
-     */
-
-    /**
      * Cancel event (back to table).
      */
     case CANCEL:
       return {
         list: state.list,
-        product: action.payload,
+        car: action.payload,
         action: IDLE,
         filters: state.filters,
         sortColumn: state.sortColumn,

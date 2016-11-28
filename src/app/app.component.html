@@ -1,11 +1,11 @@
 <md-toolbar color="primary">
   <span>{{headers[store.state.action]}}</span>
   <span class="example-fill-remaining-space"></span>
-  <button md-raised-button color="accent" *ngIf="store.state.action !== 'NEW'" (click)="tableService.newProduct()">Dodaj
+  <button md-raised-button color="accent" *ngIf="store.state.action !== 'NEW'" (click)="tableService.newCar()">Dodaj
     samochód
   </button>
 </md-toolbar>
 
-<app-product [item]="store.state.product" [action]="store.state.action"></app-product>
+<app-car [item]="store.state.car" [action]="store.state.action"></app-car>
 <app-table [items]="store.state.list" [action]="store.state.action" [filters]="store.state.filters"
            [sortColumn]="store.state.sortColumn" [sortAsc]="store.state.sortAsc"></app-table>

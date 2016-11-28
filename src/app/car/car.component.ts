@@ -4,15 +4,15 @@ import {Input} from "@angular/core/src/metadata/directives";
 import {NEW, EDITING, VIEWING} from "../../reducers/table.reducer";
 
 /**
- * Component, that renders product form (for edit or create) or product details view.
+ * Component, that renders car form (for edit or create) or car details view.
  */
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css'],
+  selector: 'app-car',
+  templateUrl: './car.component.html',
+  styleUrls: ['./car.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductComponent {
+export class CarComponent {
 
   constructor(tableService: TableService) {
     this.tableService = tableService;

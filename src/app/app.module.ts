@@ -7,7 +7,7 @@ import {AppComponent} from './app.component';
 import {TableComponent} from './table/table.component';
 import {StoreService} from "../store.service";
 import {TableService} from "../service/table.service";
-import {ProductComponent} from './product/product.component';
+import {CarComponent} from './car/car.component';
 import {TableRowComponent} from './table-row/table-row.component';
 import {MaterialModule} from '@angular/material';
 
@@ -15,7 +15,7 @@ import {MaterialModule} from '@angular/material';
   declarations: [
     AppComponent,
     TableComponent,
-    ProductComponent,
+    CarComponent,
     TableRowComponent
   ],
   imports: [
