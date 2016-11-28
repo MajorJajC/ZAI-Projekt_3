@@ -29,7 +29,7 @@ app-table-row {
   width: 4em;
 }
 
-.productForm md-input, .productForm md-slide-toggle {
+app-car md-input, app-car md-slide-toggle {
   width: 100%;
 }
 
