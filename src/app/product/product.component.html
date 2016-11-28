@@ -1,0 +1,46 @@
+<div>
+  <md-card class="productForm" *ngIf="action === NEW || action == EDITING">
+    <md-input placeholder="Model" [(ngModel)]="item.name"></md-input>
+    <md-input placeholder="URL obrazka" [(ngModel)]="item.image"></md-input>
+    <md-input placeholder="Opis samochodu" [(ngModel)]="item.description"></md-input>
+    <md-input placeholder="Cena" type="number" [(ngModel)]="item.price">
+    </md-input>
+    <md-input placeholder="Moc silnika" type="number" [(ngModel)]="item.horsepower">
+    </md-input>
+	<md-input placeholder="Pojemność silnika" type="number" [(ngModel)]="item.engcap">
+    </md-input>
+	<md-input placeholder="Klimatyzacja" type="boolean" [(ngModel)]="item.airconditioning">
+    </md-input>
+
+    <div class="form-group" [ngSwitch]="action">
+      <button *ngSwitchCase="NEW" md-raised-button color="primary" (click)="tableService.addProduct(item)">Zapisz
+      </button>
+      <button *ngSwitchCase="EDITING" md-raised-button color="primary" (click)="tableService.updateProduct(item)">
+        Zapisz
+      </button>
+      <button md-raised-button color="primary" (click)="tableService.cancel()">Anuluj</button>
+    </div>
+
+  </md-card>
+
+  <md-card *ngIf="action == VIEWING">
+    <md-card-title-group>
+      <img md-card-sm-image src="{{item?.image}}" class="img-fluid"/>
+      <md-card-title>{{item?.name}}</md-card-title>
+      <md-card-subtitle>
+        <div>Cena: {{item?.price}} zł</div>
+        <div>Moc silnika: {{item?.horsepower}} hp</div>
+		<div>Pojemność silnika: {{item?.engcap}} l</div>
+        <div>Klimatyzacja:
+          <i *ngIf="item.airconditioning" class="fa fa-check-square-o"></i>
+          <i *ngIf="!item.airconditioning" class="fa fa-square-o"></i>
+        </div>
+        
+      </md-card-subtitle>
+    </md-card-title-group>
+    <article>
+      {{item?.description}}
+    </article>
+    <button md-raised-button color="primary" (click)="tableService.cancel()">Anuluj</button>
+  </md-card>
+</div>

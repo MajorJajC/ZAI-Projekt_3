@@ -1,0 +1,14 @@
+<td>{{item.name}}</td>
+<td>{{item.price}} zł.</td>
+<td>{{item.horsepower}} hp</td>
+<td>{{item.engcap}} l</td>
+<td>
+  <button type="button" class="btn btn-secondary btn-sm" (click)="tableService.viewProduct(item)"><i class="fa fa-eye"
+                                                                                                     aria-hidden="true"></i>
+  </button>
+  <button type="button" class="btn btn-secondary btn-sm" (click)="tableService.editProduct(item)"><i
+    class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+  <button type="button" class="btn btn-secondary btn-sm" (click)="tableService.deleteProduct(item)"><i class="fa fa-ban"
+                                                                                                       aria-hidden="true"></i>
+  </button>
+</td>
