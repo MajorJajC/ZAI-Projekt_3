@@ -1,5 +1,5 @@
 <div>
-  <md-card class="carForm" *ngIf="action === NEW || action == EDITING">
+  <md-card class="carForm" *ngIf="action === ADD_ITEM || action == EDIT_ITEM">
     <md-input placeholder="Model" [(ngModel)]="item.name"></md-input>
     <md-input placeholder="URL obrazka" [(ngModel)]="item.image"></md-input>
     <md-input placeholder="Opis samochodu" [(ngModel)]="item.description"></md-input>
@@ -13,17 +13,17 @@
     </md-input>
 
     <div class="form-group" [ngSwitch]="action">
-      <button *ngSwitchCase="NEW" md-raised-button color="primary" (click)="tableService.addProduct(item)">Zapisz
+      <button *ngSwitchCase="ADD_ITEM" md-raised-button color="primary" (click)="addProduct(item)">Zapisz
       </button>
-      <button *ngSwitchCase="EDITING" md-raised-button color="primary" (click)="tableService.updateProduct(item)">
+      <button *ngSwitchCase="EDIT_ITEM" md-raised-button color="primary" (click)="updateProduct(item)">
         Zapisz
       </button>
-      <button md-raised-button color="primary" (click)="tableService.cancel()">Anuluj</button>
+      <button md-raised-button color="primary" (click)="cancel()">Anuluj</button>
     </div>
 
   </md-card>
 
-  <md-card *ngIf="action == VIEWING">
+  <md-card *ngIf="action == VIEW_ITEM">
     <md-card-title-group>
       <img md-card-sm-image src="{{item?.image}}" class="img-fluid"/>
       <md-card-title>{{item?.name}}</md-card-title>
@@ -35,12 +35,12 @@
           <i *ngIf="item.airconditioning" class="fa fa-check-square-o"></i>
           <i *ngIf="!item.airconditioning" class="fa fa-square-o"></i>
         </div>
-        
+
       </md-card-subtitle>
     </md-card-title-group>
     <article>
       {{item?.description}}
     </article>
-    <button md-raised-button color="primary" (click)="tableService.cancel()">Anuluj</button>
+    <button md-raised-button color="primary" (click)="cancel()">Anuluj</button>
   </md-card>
 </div>

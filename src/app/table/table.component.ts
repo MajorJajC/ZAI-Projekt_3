@@ -1,64 +1,29 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {Input} from "@angular/core/src/metadata/directives";
-import {TableService} from "../../service/table.service";
+import {Component, ChangeDetectionStrategy, EventEmitter} from '@angular/core';
+import {Input, Output} from "@angular/core/src/metadata/directives";
 import {Car} from "../../model/car";
-import {IDLE} from "../../reducers/table.reducer";
 
-/**
- * Components renders table.
- */
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent {
-
-  constructor(tableService: TableService) {
-    this.tableService = tableService;
-  }
-
-  /**
-   * Items to render.
-   */
   @Input() items: Car[];
 
-  /**
-   * Current action.
-   */
-  @Input() action: string;
+  @Input() filterFrom: Number;
+  @Input() filterTo: Number;
 
-  /**
-   * Applied filters for price.
-   */
-  @Input() filters: any;
-
-  /**
-   * Sort column name.
-   */
-  @Input() sortColumn: string;
-
-  /**
-   * Sort direction.
-   */
+  @Input() sortColumnName: String;
   @Input() sortAsc: boolean;
 
-  /**
-   * Table service, which holds actions.
-   */
-  private tableService: TableService;
+  @Output() filtersUpdated = new EventEmitter();
+  @Output() columnsSorted = new EventEmitter();
 
-  /**
-   * Magic string, that hold IDLE action identifier.
-   * @type {string}
-   */
-  private IDLE: string = IDLE;
+  @Output() editCarEvent = new EventEmitter();
+  @Output() viewCarEvent = new EventEmitter();
+  @Output() deleteCarEvent = new EventEmitter();
 
-  /**
-   * Colums in table to show and headers.
-   * @type {{name: string; header: string; sortable: boolean}[]}
-   */
   private columns: any[] = [
     {name: 'name', 'header': 'Model samochodu', sortable: true},
     {name: 'price', 'header': 'Cena', sortable: true},
@@ -66,4 +31,23 @@ export class TableComponent {
     {name: 'engcap', 'header': 'Pojemność silnika', sortable: true},
   ];
 
+  private updateFilters(priceFrom: Number, priceTo: Number) {
+    this.filtersUpdated.emit({priceFrom, priceTo});
+  }
+
+  private sortColumn(columnName: String) {
+    this.columnsSorted.emit(columnName);
+  }
+
+  private viewCar(car: Car) {
+    this.viewCarEvent.emit(car);
+  }
+
+  private editCar(car: Car) {
+    this.editCarEvent.emit(car);
+  }
+
+  private deleteCar(car: Car) {
+    this.deleteCarEvent.emit(car);
+  }
 }

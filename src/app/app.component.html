@@ -1,11 +1,18 @@
 <md-toolbar color="primary">
-  <span>{{headers[store.state.action]}}</span>
+  <!--<span>{{headers[store.state.action]}}</span>-->
   <span class="example-fill-remaining-space"></span>
-  <button md-raised-button color="accent" *ngIf="store.state.action !== 'NEW'" (click)="tableService.newCar()">Dodaj
+  <!--*ngIf="store.state.action !== 'NEW'"-->
+  <button md-raised-button color="accent" (click)="addNewCar()">Dodaj
     samochód
   </button>
 </md-toolbar>
 
-<app-car [item]="store.state.car" [action]="store.state.action"></app-car>
-<app-table [items]="store.state.list" [action]="store.state.action" [filters]="store.state.filters"
-           [sortColumn]="store.state.sortColumn" [sortAsc]="store.state.sortAsc"></app-table>
+<app-car [item]="car" [action]="action" (cancelAction)="cancelAction()" (addCar)="createCar($event)"></app-car>
+<app-table *ngIf="action === SHOW_TABLE" [items]="cars" [filterFrom]="filterFrom" [filterTo]="filterTo"
+           [sortColumnName]="sortColumn" [sortAsc]="sortAsc" (filtersUpdated)="filtersUpdated($event)"
+           (columnsSorted)="columnsSorted($event)" (viewCarEvent)="viewCar($event)" (editCarEvent)="editCar($event)"
+           (deleteCarEvent)="deleteCar($event)" (saveupdatedcar)="saveUpdatedCar($event)"></app-table>
+
+<!--
+[action]="store.state.action" [filters]="store.state.filters"
+-->

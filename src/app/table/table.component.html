@@ -1,28 +1,30 @@
-<md-card *ngIf="action == IDLE">
-  <md-input type="number" placeholder="Cena od" value="{{filters.from}}" #priceFrom (change)="tableService.applyFilters(priceFrom.value, priceTo.value)" >
+<md-card>
+  <md-input type="number" placeholder="Cena od" value="{{filterFrom}}" #priceFrom
+            (change)="this.updateFilters(priceFrom.value, priceTo.value)">
     <span md-suffix>zł</span>
   </md-input>
-  <md-input type="number" placeholder="Cena do" value="{{filters.to}}" #priceTo (change)="tableService.applyFilters(priceFrom.value, priceTo.value)" >
+  <md-input type="number" placeholder="Cena do" value="{{filterTo}}" #priceTo
+            (change)="this.updateFilters(priceFrom.value, priceTo.value)">
     <span md-suffix>zł</span>
   </md-input>
-  &nbsp;
-  <button md-button color="primary" (click)="tableService.clearFilters()" [style.display]="priceFrom.value || priceTo.value ? 'inline' : 'none'">Wyczyść filtry</button>
 
-
- <table class="table">
+  <table class="table">
     <thead>
     <tr>
-      <th *ngFor="let column of columns" (click)="!column.sortable || tableService.sortTable(column.name)">
-        <i *ngIf="column.sortable && sortColumn !== column.name" class="fa fa-sort"></i>
-        <i *ngIf="column.sortable && sortColumn === column.name && sortAsc" class="fa fa-sort-asc"></i>
-        <i *ngIf="column.sortable && sortColumn === column.name && !sortAsc" class="fa fa-sort-desc"></i>
+      <th *ngFor="let column of columns" (click)="!column.sortable || this.sortColumn(column.name)">
+        <i *ngIf="column.sortable && sortColumnName !== column.name" class="fa fa-sort"></i>
+        <i *ngIf="column.sortable && sortColumnName === column.name && sortAsc" class="fa fa-sort-asc"></i>
+        <i *ngIf="column.sortable && sortColumnName === column.name && !sortAsc" class="fa fa-sort-desc"></i>
         {{column.header}}
       </th>
       <th>Opcje</th>
     </tr>
     </thead>
     <tbody>
-        <app-table-row *ngFor="let car of items" [item]="car" [style.display]="(!filters.to || car.price <= filters.to) && ( !filters.from || car.price >= filters.from)?'table-row':'none'"></app-table-row>
+    <app-table-row *ngFor="let car of items" [item]="car"
+                   [style.display]="(!filterTo || car.price <= filterTo) && ( !filterFrom || car.price >= filterFrom)?'table-row':'none'"
+                   (viewCarEvent)="viewCar($event)" (editCarEvent)="editCar($event)"
+                   (deleteCarEvent)="deleteCar($event)"></app-table-row>
     </tbody>
   </table>
 </md-card>

@@ -1,10 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Input} from "@angular/core/src/metadata/directives";
-import {TableService} from "../../service/table.service";
+import {Component, EventEmitter} from '@angular/core';
+import {Input, Output} from "@angular/core/src/metadata/directives";
+import {Car} from "../../model/car";
 
-/**
- * Component renders singe table row.
- */
 @Component({
   selector: 'app-table-row',
   templateUrl: './table-row.component.html',
@@ -12,19 +9,21 @@ import {TableService} from "../../service/table.service";
 
 })
 export class TableRowComponent {
-
-  constructor(tableService: TableService) {
-    this.tableService = tableService;
-  }
-
-  /**
-   * Rendered item.
-   */
   @Input() item: any;
 
-  /**
-   * Table service, which holds actions.
-   */
-  private tableService: TableService;
+  @Output() editCarEvent = new EventEmitter();
+  @Output() viewCarEvent = new EventEmitter();
+  @Output() deleteCarEvent = new EventEmitter();
 
+  private editCar(car: Car) {
+    this.editCarEvent.emit(car);
+  }
+
+  private viewCar(car: Car) {
+    this.viewCarEvent.emit(car);
+  }
+
+  private deleteCar(car: Car) {
+    this.deleteCarEvent.emit(car);
+  }
 }

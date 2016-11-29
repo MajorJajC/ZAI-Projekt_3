@@ -10,7 +10,7 @@ export class Car {
     public image: string,
     public description: string,
     public horsepower: number,
-	public engcap: number,
+	  public engcap: number,
     public airconditioning: boolean
   ) {  }
 }

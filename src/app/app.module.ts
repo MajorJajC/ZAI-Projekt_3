@@ -5,8 +5,6 @@ import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {TableComponent} from './table/table.component';
-import {StoreService} from "../store.service";
-import {TableService} from "../service/table.service";
 import {CarComponent} from './car/car.component';
 import {TableRowComponent} from './table-row/table-row.component';
 import {MaterialModule} from '@angular/material';
@@ -24,14 +22,7 @@ import {MaterialModule} from '@angular/material';
     HttpModule,
     MaterialModule.forRoot()
   ],
-  providers: [
-    {provide: StoreService, useValue: new StoreService()},
-    {
-      provide: TableService,
-      useFactory: (store) => new TableService(store),
-      deps: [StoreService]
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

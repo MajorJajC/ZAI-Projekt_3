@@ -1,44 +1,36 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {TableService} from "../../service/table.service";
-import {Input} from "@angular/core/src/metadata/directives";
-import {NEW, EDITING, VIEWING} from "../../reducers/table.reducer";
+import {Component, EventEmitter} from '@angular/core';
+import {Input, Output} from "@angular/core/src/metadata/directives";
+import {ADD_ITEM, EDIT_ITEM, VIEW_ITEM} from "../../model/actions";
+import {Car} from "../../model/car";
 
-/**
- * Component, that renders car form (for edit or create) or car details view.
- */
 @Component({
   selector: 'app-car',
   templateUrl: './car.component.html',
-  styleUrls: ['./car.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./car.component.css']
 })
 export class CarComponent {
 
-  constructor(tableService: TableService) {
-    this.tableService = tableService;
-  }
-
-  /**
-   * Item to show, null if NEW action.
-   */
   @Input() item: any;
-
-  /**
-   * Action from state.
-   */
   @Input() action: any;
 
-  /**
-   * Some magic strings.
-   * @type {string}
-   */
-  NEW: string = NEW;
-  EDITING: string = EDITING;
-  VIEWING: string = VIEWING;
+  @Output() cancelAction = new EventEmitter();
+  @Output() addCar = new EventEmitter();
+  @Output() saveUpdatedCar = new EventEmitter();
 
-  /**
-   * Table service, which holds actions.
-   */
-  private tableService: TableService;
+  private ADD_ITEM = ADD_ITEM;
+  private EDIT_ITEM = EDIT_ITEM;
+  private VIEW_ITEM = VIEW_ITEM;
+
+  private cancel() {
+    this.cancelAction.emit();
+  }
+
+  private addProduct(car: Car) {
+    this.addCar.emit(car);
+  }
+
+  private updateProduct(car: Car) {
+    this.saveUpdatedCar.emit(car);
+  }
 
 }
