@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   private initialCarCount: Number = 15;
 
   // Aktualna ilość samochodów
-  private carCount: Number = 15;
+  private carCount: number = 15;
 
   // Wartości filtrów ceny od-do
   private filterFrom: Number;
