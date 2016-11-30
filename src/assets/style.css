@@ -1,51 +1,8 @@
 body {
-  font-size: 11px;
-  font-family: PT Sans Narrow;
-  background: linear-gradient(45deg,
-  rgba(255, 255, 255, 0) 48%,
-  rgba(255, 255, 255, .05) 50%,
-  rgba(255, 255, 255, 0) 52%),
-  linear-gradient(-45deg,
-    rgba(255, 255, 255, 0) 48%,
-    rgba(255, 255, 255, .05) 50%,
-    rgba(255, 255, 255, 0) 52%);
-  background-size: 1em 1em;
-  background-color: #253237;
+  margin: 1em;
+  padding: 0;
 }
 
-@media(max-width: 768px) {
-  body {
-    font-size: 9px;
-  }
-}
-
-app-table-row {
-  display: table-row;
-  vertical-align: inherit;
-  border-color: inherit;
-}
-
-.img-thumbnail {
-  width: 4em;
-}
-
-app-car md-input, app-car md-slide-toggle {
-  width: 100%;
-}
-
-.example-fill-remaining-space {
-  flex: 1 1 auto;
-}
-
-article {
-  font-size: 0.8em;
-  margin-bottom: 1em;
-}
-
-md-card {
-  margin: 1em 2em;
-}
-
-.btn {
-  margin: 2px;
+table {
+  margin-top: 1em;
 }

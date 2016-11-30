@@ -10,26 +10,38 @@ import {Car} from "../../model/car";
 })
 export class CarComponent {
 
+  // Aktualnie tworzony/edytowany/podglądany samochód
   @Input() item: any;
+
+  // Nazwa aktualnie wykonywanej akcji
   @Input() action: any;
 
+  // Zdarzenie anulowania podglądu/edycji/tworzenia
   @Output() cancelAction = new EventEmitter();
+
+  // Zdarzenie zapisu utworzonego samochodu
   @Output() addCar = new EventEmitter();
+
+  // Zdarzenie zapisu edytowanego auta
   @Output() saveUpdatedCar = new EventEmitter();
 
+  // Nazwy dostępnych akcji
   private ADD_ITEM = ADD_ITEM;
   private EDIT_ITEM = EDIT_ITEM;
   private VIEW_ITEM = VIEW_ITEM;
 
+  // Zdarzenie anulowania podglądu/edycji/tworzenia samochodu
   private cancel() {
     this.cancelAction.emit();
   }
 
-  private addProduct(car: Car) {
+  // Zdarzenie tworzenia nowego samochodu
+  private saveCar(car: Car) {
     this.addCar.emit(car);
   }
 
-  private updateProduct(car: Car) {
+  // Zdarzenie zapisu edytowanego samochodu
+  private updateCar(car: Car) {
     this.saveUpdatedCar.emit(car);
   }
 

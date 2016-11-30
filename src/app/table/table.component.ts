@@ -9,45 +9,60 @@ import {Car} from "../../model/car";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent {
+
+  // Lista samochodów
   @Input() items: Car[];
 
+  // Wartości filtrów ceny od-do
   @Input() filterFrom: Number;
   @Input() filterTo: Number;
 
+  // Nazwa kolumny sortowanej i kolejność
   @Input() sortColumnName: String;
   @Input() sortAsc: boolean;
 
+  // Zdarzenie aktualizacji filtrów
   @Output() filtersUpdated = new EventEmitter();
+
+  // Zdarzenie sortowania kolumny
   @Output() columnsSorted = new EventEmitter();
 
+  // Zdarzenie edycji samochodu
   @Output() editCarEvent = new EventEmitter();
+  // Zdarzenie podglądu samochodu
   @Output() viewCarEvent = new EventEmitter();
+  // Zdarzenie usunięcia samochodu
   @Output() deleteCarEvent = new EventEmitter();
+  // Zdarzenie tworzenia samochodu
+  @Output() addCarEvent = new EventEmitter();
 
-  private columns: any[] = [
-    {name: 'name', 'header': 'Model samochodu', sortable: true},
-    {name: 'price', 'header': 'Cena', sortable: true},
-    {name: 'horsepower', 'header': 'Moc silnika', sortable: true},
-    {name: 'engcap', 'header': 'Pojemność silnika', sortable: true},
-  ];
-
+  // Zdarzenie aktualizacji filtrów
   private updateFilters(priceFrom: Number, priceTo: Number) {
     this.filtersUpdated.emit({priceFrom, priceTo});
   }
 
+  // Zdarzenie sortowania tabeli
   private sortColumn(columnName: String) {
     this.columnsSorted.emit(columnName);
   }
 
+  // Zdarzenie podglądu samochodu
   private viewCar(car: Car) {
     this.viewCarEvent.emit(car);
   }
 
+  // Zdarzenie edycji samochodu
   private editCar(car: Car) {
     this.editCarEvent.emit(car);
   }
 
+  // Zdarzenie usunięcia samochodu
   private deleteCar(car: Car) {
     this.deleteCarEvent.emit(car);
+  }
+
+  // Zdarzenie tworzenia samochodu
+  private addNewCar() {
+    this.addCarEvent.emit();
   }
 }

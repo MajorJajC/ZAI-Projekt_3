@@ -1,0 +1,9 @@
+<td>{{item.name}}</td>
+<td>{{item.price}} zł.</td>
+<td>{{item.horsepower}} hp</td>
+<td>{{item.engcap}} l</td>
+<td>
+  <button class="btn btn-primary" type="button" class="btn btn-secondary btn-sm" (click)="viewCar(item)"><i class="fa fa-eye" aria-hidden="true"></i></button>
+  <button class="btn btn-primary" type="button" class="btn btn-secondary btn-sm" (click)="editCar(item)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+  <button class="btn btn-primary" type="button" class="btn btn-secondary btn-sm" (click)="deleteCar(item)"><i class="fa fa-ban" aria-hidden="true"></i></button>
+</td>

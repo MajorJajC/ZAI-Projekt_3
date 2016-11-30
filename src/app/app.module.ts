@@ -6,21 +6,19 @@ import {HttpModule} from '@angular/http';
 import {AppComponent} from './app.component';
 import {TableComponent} from './table/table.component';
 import {CarComponent} from './car/car.component';
-import {TableRowComponent} from './table-row/table-row.component';
-import {MaterialModule} from '@angular/material';
+import {RowComponent} from './row/row.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TableComponent,
     CarComponent,
-    TableRowComponent
+    TableComponent,
+    RowComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
-    MaterialModule.forRoot()
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]

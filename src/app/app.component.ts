@@ -11,39 +11,42 @@ import {ADD_ITEM, EDIT_ITEM, VIEW_ITEM, SHOW_TABLE} from "../model/actions";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+  // Lista samochodów
   private cars: Car[];
+
+  // Ilość inicjalnie wygenerowanych rekordów
   private initialCarCount: Number = 15;
+
+  // Aktualna ilość samochodów
   private carCount: Number = 15;
 
+  // Wartości filtrów ceny od-do
   private filterFrom: Number;
   private filterTo: Number;
 
-  private sortColumn: String = 'Name';
+  // Nazwa sortowanej kolumny i kierunek sortowania
+  private sortColumn: String = 'name';
   private sortAsc: boolean = true;
 
+  // Aktualnie tworzone/edytowane/podglądane auto
   private car = {};
 
+  // Aktualnie wykonywana akcja, inicjalnie tabelka
   private action: string = SHOW_TABLE;
 
+  // Możliwe wartości akcji
   private ADD_ITEM = ADD_ITEM;
   private EDIT_ITEM = EDIT_ITEM;
   private VIEW_ITEM = VIEW_ITEM;
   private SHOW_TABLE = SHOW_TABLE;
 
+  // Metoda wywoływana po inicjacji komponentu
   ngOnInit(): void {
     this.cars = this.getSampleCars();
   }
 
-  /**
-   * Headers for actions.
-   * @type {Array}
-   */
-  private headers: any[] = [];
-
-  /**
-   * Method generates some dummy data for test purposes.
-   * @returns {Car[]}
-   */
+  // Metoda generujące przykładowe dane
   private getSampleCars(): any[] {
     let sampleImgUrl: string = 'http://pixers.pl/image/1/400/n8nLugc1WRUN9cGZCiEM3RmFLVmTNpmQyolUwgHO812UbpkZfRkQ81j1HZVQfNDXw79QhEUNhYVRhYVQh72MhF3Fqz4il5maulmR0ZmaERGaho2F0Rni/96/86/40/0096864037/1/fototapeta-cartoon-czerwony-samochod-transport.jpg';
     let loremIpsum: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eget ex eget erat dapibus fermentum in vitae dolor. Maecenas suscipit tempus accumsan. Quisque rhoncus augue vel ligula mollis, in fermentum nulla auctor. Morbi varius libero vitae tristique laoreet. Proin vehicula nunc in dolor lobortis viverra. Curabitur non commodo ex, a sagittis dui. Curabitur consectetur metus pretium nibh consequat efficitur. Maecenas ut vestibulum elit.';
@@ -59,11 +62,13 @@ export class AppComponent implements OnInit {
     return cars;
   }
 
+  // Zdarzenie aktualizacji filtrów
   private filtersUpdated(event) {
     this.filterFrom = event.priceFrom;
     this.filterTo = event.priceTo;
   }
 
+  // Zdarzenie sortowania tabeli
   private columnsSorted(event) {
     let sortAsc: boolean = true;
     let sortProperty: string = event;
@@ -83,44 +88,59 @@ export class AppComponent implements OnInit {
 
   }
 
+  // Zdarzenie anulowania ostatniej akcji
   private cancelAction() {
+    this.car = {};
     this.action = SHOW_TABLE;
   }
 
+  // Akcja wyświetlenia formularza tworzenia samochodu
   private addNewCar() {
     this.action = ADD_ITEM;
   }
 
+  // Akcja podglądu samochodu
   private viewCar(car: Car) {
     this.car = car;
     this.action = VIEW_ITEM;
   }
 
+  // Akcja wyświetlenia formularza edycji samochodu
   private editCar(car: Car) {
-    this.car = car;
+    this.car = this.clone(car);
     this.action = EDIT_ITEM;
   }
 
+  // Akcja tworzenia samochodu
   private createCar(car: Car) {
+    car.id = this.carCount;
+    this.carCount++;
+
     this.cars.push(car);
     this.car = {};
     this.action = SHOW_TABLE;
   }
 
+  // Akcja aktualizowania danych samochodu
   private saveUpdatedCar(car: Car) {
+    let id: number = car.id;
     let cars: Car[] = this.cars;
-    let index = cars.indexOf(car);
-    console.log('adsd');
 
-    if (index > -1) {
-      cars[index] = car;
+    for (let carIterator of cars) {
+      if(carIterator.id === id) {
+        this.deleteCar(carIterator);
+        this.createCar(car);
+        this.columnsSorted(this.sortColumn);
+        this.columnsSorted(this.sortColumn);
+      }
     }
 
+    this.car = {};
     this.cars = cars;
     this.action = SHOW_TABLE;
-    console.log('adsd');
   }
 
+  // Akcja usuwania samochodu
   private deleteCar(car: Car) {      //noinspection TypeScriptUnresolvedVariable
     let carList: Car[] = this.cars;
     let carIndex = carList.indexOf(car);
@@ -131,6 +151,7 @@ export class AppComponent implements OnInit {
     this.cars = carList;
   }
 
+  // Metoda do porównywania samochodów po danym parametrze
   private dynamicSort(property: string) {
     var sortOrder = 1;
     if (property[0] === "-") {
@@ -142,4 +163,15 @@ export class AppComponent implements OnInit {
       return result * sortOrder;
     }
   }
+
+  // Metoda tworzy kopię obiektu
+  private clone(obj) {
+  if (null == obj || "object" != typeof obj) return obj;
+  var copy = {};
+  for (var attr in obj) {
+    if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+  }
+  return copy;
+}
+
 }

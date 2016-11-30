@@ -1,46 +1,46 @@
-<div>
-  <md-card class="carForm" *ngIf="action === ADD_ITEM || action == EDIT_ITEM">
-    <md-input placeholder="Model" [(ngModel)]="item.name"></md-input>
-    <md-input placeholder="URL obrazka" [(ngModel)]="item.image"></md-input>
-    <md-input placeholder="Opis samochodu" [(ngModel)]="item.description"></md-input>
-    <md-input placeholder="Cena" type="number" [(ngModel)]="item.price">
-    </md-input>
-    <md-input placeholder="Moc silnika" type="number" [(ngModel)]="item.horsepower">
-    </md-input>
-	<md-input placeholder="Pojemność silnika" type="number" [(ngModel)]="item.engcap">
-    </md-input>
-	<md-input placeholder="Klimatyzacja" type="boolean" [(ngModel)]="item.airconditioning">
-    </md-input>
-
-    <div class="form-group" [ngSwitch]="action">
-      <button *ngSwitchCase="ADD_ITEM" md-raised-button color="primary" (click)="addProduct(item)">Zapisz
-      </button>
-      <button *ngSwitchCase="EDIT_ITEM" md-raised-button color="primary" (click)="updateProduct(item)">
-        Zapisz
-      </button>
-      <button md-raised-button color="primary" (click)="cancel()">Anuluj</button>
-    </div>
-
-  </md-card>
-
-  <md-card *ngIf="action == VIEW_ITEM">
-    <md-card-title-group>
-      <img md-card-sm-image src="{{item?.image}}" class="img-fluid"/>
-      <md-card-title>{{item?.name}}</md-card-title>
-      <md-card-subtitle>
-        <div>Cena: {{item?.price}} zł</div>
-        <div>Moc silnika: {{item?.horsepower}} hp</div>
-		<div>Pojemność silnika: {{item?.engcap}} l</div>
-        <div>Klimatyzacja:
-          <i *ngIf="item.airconditioning" class="fa fa-check-square-o"></i>
-          <i *ngIf="!item.airconditioning" class="fa fa-square-o"></i>
-        </div>
-
-      </md-card-subtitle>
-    </md-card-title-group>
-    <article>
-      {{item?.description}}
-    </article>
-    <button md-raised-button color="primary" (click)="cancel()">Anuluj</button>
-  </md-card>
+<div class="carForm" *ngIf="action === ADD_ITEM || action == EDIT_ITEM || action == VIEW_ITEM">
+  <div class="form-group">
+    <label for="model">Model</label>
+    <input type="text" class="form-control" placeholder="Model" id="model" [(ngModel)]="item.name"
+           [disabled]="(action == VIEW_ITEM)?'true':'false'"/>
+  </div>
+  <div class="form-group">
+    <label for="url">Adres obrazka</label>
+    <input type="text" class="form-control" placeholder="URL obrazka" id="url" [(ngModel)]="item.image"
+           [disabled]="(action == VIEW_ITEM)?'true':'false'"/>
+    <img *ngIf="(action == VIEW_ITEM)" src="{{item.image}}"/>
+  </div>
+  <div class="form-group">
+    <label for="price">Cena</label>
+    <input type="number" class="form-control" placeholder="Cena" id="price" [(ngModel)]="item.price"
+           [disabled]="(action == VIEW_ITEM)?'true':'false'"/>
+  </div>
+  <div class="form-group">
+    <label for="horsepower">Moc silnika</label>
+    <input type="number" class="form-control" placeholder="Moc silnika" id="horsepower"
+           [(ngModel)]="item.horsepower" [disabled]="(action == VIEW_ITEM)?'true':'false'"/>
+  </div>
+  <div class="form-group">
+    <label for="engcap">Pojemność silnika</label>
+    <input type="number" class="form-control" placeholder="Pojemność silnika" id="engcap" [(ngModel)]="item.engcap"
+           [disabled]="(action == VIEW_ITEM)?'true':'false'"/>
+  </div>
+  <div class="form-group">
+    <label for="description">Opis samochodu</label>
+    <textarea class="form-control" id="description" rows="3" [(ngModel)]="item.description"
+              [disabled]="(action == VIEW_ITEM)?'true':'false'"></textarea>
+  </div>
+  <div class="form-check">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input" [(ngModel)]="item.airconditioning"
+             [disabled]="(action == VIEW_ITEM)?'true':'false'">
+      Klimatyzacja
+    </label>
+  </div>
+  <div class="form-group" [ngSwitch]="action">
+    <button class="btn btn-primary" *ngSwitchCase="ADD_ITEM" color="primary" (click)="saveCar(item)">Zapisz</button>
+    <button class="btn btn-primary" *ngSwitchCase="EDIT_ITEM" color="primary" (click)="updateCar(item)">Zapisz
+    </button>
+    <button class="btn btn-primary" color="primary" (click)="cancel()">Anuluj</button>
+  </div>
 </div>
