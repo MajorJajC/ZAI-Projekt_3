@@ -15,11 +15,8 @@ export class AppComponent implements OnInit {
   // Lista samochodów
   private cars: Car[];
 
-  // Ilość inicjalnie wygenerowanych rekordów
-  private initialCarCount: Number = 15;
-
   // Aktualna ilość samochodów
-  private carCount: number = 15;
+  private carCount: number = 10;
 
   // Wartości filtrów ceny od-do
   private filterFrom: Number;
@@ -48,16 +45,22 @@ export class AppComponent implements OnInit {
 
   // Metoda generujące przykładowe dane
   private getSampleCars(): any[] {
-    let sampleImgUrl: string = 'http://pixers.pl/image/1/400/n8nLugc1WRUN9cGZCiEM3RmFLVmTNpmQyolUwgHO812UbpkZfRkQ81j1HZVQfNDXw79QhEUNhYVRhYVQh72MhF3Fqz4il5maulmR0ZmaERGaho2F0Rni/96/86/40/0096864037/1/fototapeta-cartoon-czerwony-samochod-transport.jpg';
-    let loremIpsum: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eget ex eget erat dapibus fermentum in vitae dolor. Maecenas suscipit tempus accumsan. Quisque rhoncus augue vel ligula mollis, in fermentum nulla auctor. Morbi varius libero vitae tristique laoreet. Proin vehicula nunc in dolor lobortis viverra. Curabitur non commodo ex, a sagittis dui. Curabitur consectetur metus pretium nibh consequat efficitur. Maecenas ut vestibulum elit.';
+    let image: string = 'http://pixers.pl/image/1/400/n8nLugc1WRUN9cGZCiEM3RmFLVmTNpmQyolUwgHO812UbpkZfRkQ81j1HZVQfNDXw79QhEUNhYVRhYVQh72MhF3Fqz4il5maulmR0ZmaERGaho2F0Rni/96/86/40/0096864037/1/fototapeta-cartoon-czerwony-samochod-transport.jpg';
+    let desc: string = 'Drogi Marszałku, Wysoka Izbo. PKB rośnie. Nie chcę państwu niczego sugerować, ale skoordynowanie pracy obu urzędów pociąga za sobą proces wdrożenia i miejsce ostatnimi czasy, dobitnie świadczy o nowe rekordy powoduje docenianie wag modelu rozwoju. Często niezauważanym szczegółem jest ważne zadanie w restrukturyzacji przedsiębiorstwa. Tylko spokojnie. Nie zapominajmy jednak, że zakup nowego sprzętu zmusza nas do tej sprawy spełnia ważne zadanie w kształtowaniu kierunków rozwoju. Jednakże, zakres i miejsce szkolenia kadry odpowiadającego potrzebom. Z pełną odpowiedzialnością mogę stwierdzić iż dalszy rozwój różnych form oddziaływania. Pomijając fakt, że wdrożenie nowych, lepszych rozwiązań wymaga niezwykłej precyzji w większym stopniu tworzenie obecnej sytuacji. Z drugiej strony, rozszerzenie bazy o nowe rekordy zabezpiecza udział szerokiej grupie w restrukturyzacji przedsiębiorstwa. Natomiast rozszerzenie naszej działalności koliduje z powodu postaw uczestników wobec zadań programowych pomaga w przyszłościowe rozwiązania pomaga w większym stopniu tworzenie nowych propozycji. Już nie zaś teorię, okazuje się iż zakup nowego sprzętu pociąga za sobą proces wdrożenia i unowocześniania kierunków rozwoju. Obywatelu, dokończenie aktualnych projektów pociąga za najważniejszy punkt naszych działań obierzemy praktykę, nie zaś teorię, okazuje się iż zakup nowego sprzętu zmusza nas.';
     let cars: Car[] = [];
 
-    for (let i = 0; i < this.initialCarCount; i++) {
-      let car: Car = new Car('Samochód ' + i, 1000 * i, sampleImgUrl, loremIpsum, i * 50, (i + 1) % 6, !(i % 3));
-      car.id = i;
-      cars.push(car);
-      this.carCount = i + 1;
-    }
+    let car1: Car = new Car('Audi 80', 1500, image, desc, 50, 1.8, false);
+    let car2: Car = new Car('Lancia Kappa', 5000, image, desc, 175, 2.4, true);
+    let car3: Car = new Car('BMW M5', 150000, image, desc, 250, 3.8, true);
+    let car4: Car = new Car('Audi S3', 120000, image, desc, 300, 2.0, true);
+    let car5: Car = new Car('Peugeot 206 SW', 7500, image, desc, 75, 1.4, false);
+    let car6: Car = new Car('VW Passat', 11500, image, desc, 150, 1.9, true);
+    let car7: Car = new Car('Fiat 126', 100, image, desc, 45, 0.6, false);
+    let car8: Car = new Car('Mazda 6', 105000, image, desc, 125, 1.7, true);
+    let car9: Car = new Car('Honda Civic', 15000, image, desc, 170, 1.8, true);
+    let car10: Car = new Car('UAZ', 3500, image, desc, 55, 3.5, false);
+
+    cars.push(car1, car2, car3, car4, car5, car6, car7, car8, car9, car10);
 
     return cars;
   }
@@ -127,7 +130,7 @@ export class AppComponent implements OnInit {
     let cars: Car[] = this.cars;
 
     for (let carIterator of cars) {
-      if(carIterator.id === id) {
+      if (carIterator.id === id) {
         this.deleteCar(carIterator);
         this.createCar(car);
         this.columnsSorted(this.sortColumn);
@@ -166,12 +169,12 @@ export class AppComponent implements OnInit {
 
   // Metoda tworzy kopię obiektu
   private clone(obj) {
-  if (null == obj || "object" != typeof obj) return obj;
-  var copy = {};
-  for (var attr in obj) {
-    if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+    if (null == obj || "object" != typeof obj) return obj;
+    var copy = {};
+    for (var attr in obj) {
+      if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+    }
+    return copy;
   }
-  return copy;
-}
 
 }
